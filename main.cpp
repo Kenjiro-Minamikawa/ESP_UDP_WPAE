@@ -2,7 +2,7 @@
   ARRC::UDP udp1;
 void setup(){
   Serial.begin(115200);
-  udp1.Init("e2027",/*            */"SiChiHaChi+HMHM");
+  udp1.Init("exxxx","PASS");
 }
 void loop(){
   float a, b, c;
