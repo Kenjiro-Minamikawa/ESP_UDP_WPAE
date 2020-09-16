@@ -30,9 +30,9 @@ namespace ARRC{
         rec_udp.begin(12345);
     }
 
-    void UDP::read(){
+    void UDP::read(float* a, float* b, float* c){
         uint8_t buffer[50] = {0};
-        //double data;
+        double data[3];
         rec_udp.parsePacket();
         if((rec_udp.read(buffer, 50)>0) && ((uint8_t)atoi((const char*)buffer)==0xff)){
             for(int i=0;i<3;i++){
@@ -43,8 +43,12 @@ namespace ARRC{
                 rec_udp.parsePacket();
                 rec_udp.read(buffer, 50);
                 Serial.print((char *)buffer);
+                data[i]=atof((const char*)buffer);
             }
             Serial.println("");
+            *a = data[0];
+            *b = data[1];
+            *c = data[2];
             //data = atof(const char*)
             //return 
         }

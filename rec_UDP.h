@@ -8,7 +8,7 @@ namespace ARRC{
     class UDP{
         public:
             void Init(const char* id, const char* pwd);
-            void read();
+            void read(float* a, float* b, float* c);
         private:
             WiFiUDP rec_udp;
             const char* EAP_IDENTITY="NO";
