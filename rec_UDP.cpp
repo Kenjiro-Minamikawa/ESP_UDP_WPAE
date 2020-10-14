@@ -30,27 +30,38 @@ namespace ARRC{
         rec_udp.begin(12345);
     }
 
-    void UDP::read(float* a, float* b, float* c){
+    double UDP::read(){
         uint8_t buffer[50] = {0};
-        double data[3];
+        double data;
         rec_udp.parsePacket();
-        if((rec_udp.read(buffer, 50)>0) && ((uint8_t)atoi((const char*)buffer)==0xff)){
-            for(int i=0;i<3;i++){
-                Serial.println("");
-                Serial.print("Data ");
-                Serial.print(i+1);
-                Serial.print(": ");
-                rec_udp.parsePacket();
-                rec_udp.read(buffer, 50);
-                Serial.print((char *)buffer);
-                data[i]=atof((const char*)buffer);
-            }
-            Serial.println("");
-            *a = data[0];
-            *b = data[1];
-            *c = data[2];
+        //if((rec_udp.read(buffer, 50)>0) && ((uint8_t)atoi((const char*)buffer)==0xff)){
+            //for(int i=0;i<3;i++){
+                //Serial.println("");
+                //Serial.print("Data ");
+                //Serial.print(i+1);
+                //Serial.print(": ");
+            rec_udp.parsePacket();
+            rec_udp.read(buffer, 50);
+                //Serial.print((char *)buffer);
+            data=atof((const char*)buffer);
+            //}
+            //Serial.println("");
+            //*a = data[0];
+            //*b = data[1];
+            //*c = data[2];
             //data = atof(const char*)
             //return 
+        //}
+        return data;
+    }
+
+    int UDP::available(){
+        uint8_t buffera[50] = {0};
+        rec_udp.parsePacket();
+        if((rec_udp.read(buffera, 50)>0) && ((uint8_t)atoi((const char*)buffera)==0xff)){
+            return 1;
+        }else{
+            return -1;
         }
     }
 }
